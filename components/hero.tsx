@@ -28,10 +28,10 @@ export function Hero() {
           </Reveal>
           <Reveal delay={160}>
             <p className="mt-6 max-w-md text-pretty leading-relaxed text-muted-foreground">
-              VisionWheel translates where you look into precise, reliable
-              action, giving people with limited mobility full command of a
-              computer, communication, and their environment. No hands. No
-              cloud. No compromise.
+              VisionWheel translates deliberate eye movements into reliable
+              wheelchair commands, giving people who cannot use a joystick a
+              hands-free way to move independently. No cameras. No cloud. No
+              compromise.
             </p>
           </Reveal>
 
