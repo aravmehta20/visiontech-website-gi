@@ -13,18 +13,18 @@ export function Architecture() {
     <section id="architecture" className="border-b border-border">
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* Module image */}
-        <div className="relative flex items-center justify-center border-border bg-secondary/40 px-6 py-14 sm:px-10 lg:border-r">
-          <Reveal className="relative aspect-[4/3] w-full max-w-md">
+        <div className="relative flex items-center justify-center border-border bg-card px-6 py-14 sm:px-10 lg:border-r">
+          <Reveal className="relative aspect-[3/2] w-full max-w-lg">
             <Image
-              src="/visionwheel-module.png"
-              alt="Macro detail of the VisionWheel infrared eye-tracking optical module"
+              src="/visionwheel-operation.png"
+              alt="VisionWheel operation cycle: signal acquisition from eye-tracking glasses, one-minute calibration, and on-device classification driving wheelchair movement"
               fill
               className="object-contain"
-              sizes="(max-width: 1024px) 90vw, 40vw"
+              sizes="(max-width: 1024px) 90vw, 45vw"
             />
           </Reveal>
           <span className="eyebrow absolute bottom-5 right-6 text-muted-foreground">
-            Fig. 02 — Optical module
+            Fig. 02 — Operation cycle
           </span>
         </div>
 

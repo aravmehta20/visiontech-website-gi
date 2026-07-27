@@ -70,8 +70,8 @@ export function Hero() {
           <Reveal delay={200} className="relative w-full max-w-md">
             <div className="relative aspect-square">
               <Image
-                src="/visionwheel-device.png"
-                alt="VisionWheel VW-3 eye-tracking sensor bar on a porcelain background"
+                src="/visionwheel-chair.png"
+                alt="VisionWheel VW-3 powered wheelchair CAD render in matte black and brushed aluminum on a porcelain background"
                 fill
                 priority
                 className="object-contain"
@@ -80,13 +80,13 @@ export function Hero() {
             </div>
 
             {/* annotation lines */}
-            <Annotation className="left-2 top-6" label="IR sensor array" side="left" />
-            <Annotation className="right-2 top-1/3" label="Glass lens strip" side="right" />
-            <Annotation className="bottom-10 left-6" label="Universal mount" side="left" />
+            <Annotation className="left-2 top-6" label="Eye-tracking module" side="left" />
+            <Annotation className="right-2 top-1/3" label="Drive controller" side="right" />
+            <Annotation className="bottom-10 left-6" label="Aluminum frame" side="left" />
           </Reveal>
 
           <span className="eyebrow absolute bottom-5 right-6 text-muted-foreground">
-            Fig. 01 — VW-3 sensor bar
+            Fig. 01 — VW-3 chassis
           </span>
         </div>
       </div>
