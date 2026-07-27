@@ -17,14 +17,14 @@ export function Architecture() {
           <Reveal className="relative aspect-[4/3] w-full max-w-md">
             <Image
               src="/visionwheel-glasses.png"
-              alt="VisionWheel carbon-fiber eye-tracking glasses with integrated infrared sensors on a porcelain background"
+              alt="VisionWheel eye-tracking glasses prototype with dual optical sensors and integrated wiring on a porcelain background"
               fill
               className="object-contain"
               sizes="(max-width: 1024px) 90vw, 45vw"
             />
           </Reveal>
           <span className="eyebrow absolute bottom-5 right-6 text-muted-foreground">
-            Fig. 02 — Carbon-fiber optics
+            Fig. 02 — Eye-tracking optics
           </span>
         </div>
 
