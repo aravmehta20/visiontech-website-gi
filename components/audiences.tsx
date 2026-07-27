@@ -114,6 +114,13 @@ export function Audiences() {
 
   const ease = [0.22, 1, 0.36, 1] as const
 
+  const selectAudience = (key: string) => {
+    setActiveKey(key)
+    window.dispatchEvent(
+      new CustomEvent('visiontech:audience-change', { detail: key }),
+    )
+  }
+
   return (
     <section id="audiences" className="border-b border-border px-6 py-16 sm:px-10 sm:py-24 lg:px-14">
       <div className="max-w-2xl">
@@ -146,7 +153,7 @@ export function Audiences() {
                 key={a.key}
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setActiveKey(a.key)}
+                onClick={() => selectAudience(a.key)}
                 className={`relative rounded-full border px-5 py-2.5 text-sm font-medium transition-colors ${
                   isActive
                     ? 'border-transparent text-accent-foreground'

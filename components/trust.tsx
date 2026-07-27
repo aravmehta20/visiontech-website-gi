@@ -1,10 +1,10 @@
 import { Reveal } from './reveal'
 
 const ITEMS = [
-  { k: 'Regulatory', v: 'FDA Class II', note: 'Cleared assistive device' },
-  { k: 'Privacy', v: 'HIPAA-ready', note: 'No PHI leaves the device' },
-  { k: 'Security', v: 'SOC 2 Type II', note: 'Independently audited' },
-  { k: 'Quality', v: 'ISO 13485', note: 'Medical device QMS' },
+  { k: 'REGULATORY', v: 'FDA Class II', note: 'Class II assistive device' },
+  { k: 'PRIVACY', v: 'HIPAA-ready', note: 'No PHI leaves the device' },
+  { k: 'SAFETY', v: 'Layered safeguards', note: 'Blink braking and obstacle detection' },
+  { k: 'QUALITY', v: 'Documented testing', note: 'Hardware and software validation' },
 ]
 
 export function Trust() {
@@ -12,7 +12,7 @@ export function Trust() {
     <section id="trust" className="border-b border-border px-6 py-16 sm:px-10 sm:py-24 lg:px-14">
       <div className="max-w-2xl">
         <Reveal>
-          <p className="eyebrow text-accent">Compliance & trust</p>
+          <p className="eyebrow text-accent">COMPLIANCE & TRUST</p>
         </Reveal>
         <Reveal delay={80}>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -57,32 +58,51 @@ export function SidebarNav() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          'fixed inset-0 z-40 bg-background transition-opacity duration-300 lg:hidden',
+          'fixed inset-0 z-40 grid min-h-[100dvh] grid-rows-[auto_1fr_auto] bg-background px-5 transition-opacity duration-300 lg:hidden',
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
         )}
       >
-        <nav className="flex h-full flex-col justify-center gap-1 px-6 pt-16">
+        <div className="h-[3.75rem]" aria-hidden="true" />
+
+        <nav className="flex flex-col gap-1 pt-8" aria-label="Mobile navigation">
           {SECTIONS.map((s) => (
             <button
               key={s.id}
               type="button"
               onClick={() => handleNav(s.id)}
-              className="flex items-baseline gap-4 border-b border-border py-4 text-left"
+              className={cn(
+                'flex h-14 items-center gap-3 border-l-2 border-b border-b-border pl-3 text-left transition-colors',
+                active === s.id
+                  ? 'border-l-accent text-foreground'
+                  : 'border-l-transparent text-muted-foreground',
+              )}
             >
-              <span className="eyebrow text-muted-foreground">{s.index}</span>
-              <span className="text-2xl font-medium tracking-tight text-foreground">
-                {s.label}
-              </span>
+              <span className="eyebrow w-8 shrink-0">{s.index}</span>
+              <span className="text-xl font-medium tracking-tight">{s.label}</span>
             </button>
           ))}
         </nav>
+
+        <div className="space-y-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6">
+          <button
+            type="button"
+            onClick={() => handleNav('contact')}
+            className="flex w-full items-center justify-center rounded-sm bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            Request a demo
+          </button>
+          <p className="eyebrow text-center text-muted-foreground/70">
+            FDA Class II · Est. 2026
+          </p>
+        </div>
       </div>
 
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col justify-between border-r border-border bg-card px-7 py-8 lg:flex">
-        <div>
-          <Wordmark />
-          <p className="eyebrow mt-6 text-muted-foreground">Assistive control system</p>
+        <div className="h-[3.8125rem]">
+          <div className="translate-y-5">
+            <Wordmark />
+          </div>
         </div>
 
         <nav className="flex flex-col gap-px">
@@ -115,7 +135,7 @@ export function SidebarNav() {
           >
             Request a demo
           </button>
-          <p className="eyebrow text-muted-foreground/70">FDA Class II · Est. 2021</p>
+          <p className="eyebrow text-muted-foreground/70">FDA Class II · Est. 2026</p>
         </div>
       </aside>
     </>
@@ -124,11 +144,18 @@ export function SidebarNav() {
 
 function Wordmark() {
   return (
-    <div className="flex items-center gap-2">
-      <span className="flex h-6 w-6 items-center justify-center rounded-sm border border-foreground">
-        <span className="h-2 w-2 rounded-full bg-accent" />
+    <div className="flex items-center gap-1.5 lg:gap-2">
+      <Image
+        src="/visiontech-logo.png"
+        alt=""
+        width={896}
+        height={512}
+        className="h-7 w-auto shrink-0"
+        priority
+      />
+      <span className="-translate-y-px text-base font-semibold tracking-tight text-foreground lg:translate-y-0">
+        VisionTech
       </span>
-      <span className="text-base font-semibold tracking-tight text-foreground">VisionWheel</span>
     </div>
   )
 }

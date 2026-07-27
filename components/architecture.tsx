@@ -2,10 +2,10 @@ import Image from 'next/image'
 import { Reveal } from './reveal'
 
 const FLOW = [
-  { k: 'Capture', v: 'IR camera' },
-  { k: 'Infer', v: 'Neural core' },
-  { k: 'Map', v: 'Gaze → intent' },
-  { k: 'Act', v: 'Device output' },
+  { k: 'Sense', v: 'EOG electrodes' },
+  { k: 'Filter', v: 'Signal cleanup' },
+  { k: 'Classify', v: 'Eye-movement intent' },
+  { k: 'Drive', v: 'Motor command' },
 ]
 
 export function Architecture() {
@@ -16,33 +16,33 @@ export function Architecture() {
         <div className="relative flex items-center justify-center border-border bg-secondary/40 px-6 py-14 sm:px-10 lg:border-r">
           <Reveal className="relative aspect-[4/3] w-full max-w-md">
             <Image
-              src="/visionwheel-module.png"
-              alt="Macro detail of the VisionWheel infrared eye-tracking optical module"
+              src="/visionwheel-glasses.png"
+              alt="VisionLens eye-tracking prototype glasses with EOG electrodes"
               fill
               className="object-contain"
               sizes="(max-width: 1024px) 90vw, 40vw"
             />
           </Reveal>
           <span className="eyebrow absolute bottom-5 right-6 text-muted-foreground">
-            Fig. 02 — Optical module
+            Fig. 02 — Eye-tracking prototype
           </span>
         </div>
 
         {/* Copy + flow */}
         <div className="flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-14">
           <Reveal>
-            <p className="eyebrow text-accent">Architecture · Private by design</p>
+            <p className="eyebrow text-accent">ARCHITECTURE · PRIVATE BY DESIGN</p>
           </Reveal>
           <Reveal delay={80}>
             <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Nothing leaves the device.
+              Control stays on the chair.
             </h2>
           </Reveal>
           <Reveal delay={140}>
             <p className="mt-5 max-w-lg text-pretty leading-relaxed text-muted-foreground">
-              A dedicated neural core processes every frame locally. Raw video
-              never touches a network, a disk, or a server. What the camera
-              sees stays with the person it belongs to.
+              An embedded AI engine processes every signal locally. Raw EOG data
+              never touches the cloud, a disk, or an external server. What the
+              electrodes detect stays on the device.
             </p>
           </Reveal>
 

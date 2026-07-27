@@ -1,14 +1,96 @@
 'use client'
 
-import { useState } from 'react'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { Check } from 'lucide-react'
 import { Reveal } from './reveal'
 
-const ROLES = ['Provider', 'Clinic', 'Insurer', 'Family']
+const ROLES = ['Provider', 'Clinic', 'Insurer', 'Family'] as const
+type Role = (typeof ROLES)[number]
+
+const ROLE_CONTENT: Record<
+  Role,
+  {
+    eyebrow: string
+    headline: string
+    body: string
+    emailLabel: string
+    emailPlaceholder: string
+    organizationLabel?: string
+    organizationPlaceholder?: string
+    submitLabel: string
+    confirmation: string
+  }
+> = {
+  Provider: {
+    eyebrow: 'Clinical walkthrough',
+    headline: 'See VisionWheel in clinical practice.',
+    body: 'Explore patient assessment, fitting, calibration, and prescribing workflows with a clinical specialist.',
+    emailLabel: 'Work email',
+    emailPlaceholder: 'jordan@practice.org',
+    organizationLabel: 'Practice or organization',
+    organizationPlaceholder: 'Northside Rehabilitation',
+    submitLabel: 'Request a clinical demo',
+    confirmation: 'A clinical specialist will reach out within one business day.',
+  },
+  Clinic: {
+    eyebrow: 'Deployment walkthrough',
+    headline: 'See how VisionWheel fits your clinic.',
+    body: 'Review onboarding, staff training, device deployment, and ongoing patient support with our implementation team.',
+    emailLabel: 'Work email',
+    emailPlaceholder: 'jordan@clinic.org',
+    organizationLabel: 'Clinic or health system',
+    organizationPlaceholder: 'Northside Rehabilitation',
+    submitLabel: 'Request a clinic demo',
+    confirmation: 'An implementation specialist will reach out within one business day.',
+  },
+  Insurer: {
+    eyebrow: 'Coverage briefing',
+    headline: 'Review the evidence behind VisionWheel.',
+    body: 'Discuss clinical documentation, measurable outcomes, coverage pathways, and long-term value with our team.',
+    emailLabel: 'Work email',
+    emailPlaceholder: 'jordan@healthplan.com',
+    organizationLabel: 'Insurance organization',
+    organizationPlaceholder: 'Regional Health Plan',
+    submitLabel: 'Request a coverage briefing',
+    confirmation: 'A coverage specialist will reach out within one business day.',
+  },
+  Family: {
+    eyebrow: 'Family consultation',
+    headline: 'Explore what VisionWheel could make possible.',
+    body: 'Tell us a little about your needs and speak one-on-one with someone who can answer questions about fit, setup, and next steps.',
+    emailLabel: 'Email address',
+    emailPlaceholder: 'jordan@example.com',
+    submitLabel: 'Talk with our team',
+    confirmation: 'A family support specialist will reach out within one business day.',
+  },
+}
+
+const AUDIENCE_TO_ROLE: Record<string, Role> = {
+  providers: 'Provider',
+  clinics: 'Clinic',
+  insurers: 'Insurer',
+  families: 'Family',
+}
 
 export function ContactFooter() {
-  const [role, setRole] = useState('Provider')
+  const [role, setRole] = useState<Role>('Provider')
   const [submitted, setSubmitted] = useState(false)
+  const content = ROLE_CONTENT[role]
+
+  useEffect(() => {
+    const handleAudienceChange = (event: Event) => {
+      const key = (event as CustomEvent<string>).detail
+      const nextRole = AUDIENCE_TO_ROLE[key]
+      if (nextRole) {
+        setRole(nextRole)
+        setSubmitted(false)
+      }
+    }
+
+    window.addEventListener('visiontech:audience-change', handleAudienceChange)
+    return () => window.removeEventListener('visiontech:audience-change', handleAudienceChange)
+  }, [])
 
   return (
     <>
@@ -17,17 +99,16 @@ export function ContactFooter() {
           {/* Pitch */}
           <div className="flex flex-col justify-center border-border px-6 py-16 sm:px-10 sm:py-24 lg:border-r lg:px-14">
             <Reveal>
-              <p className="eyebrow text-accent">Request a demo</p>
+              <p className="eyebrow text-accent">{content.eyebrow}</p>
             </Reveal>
             <Reveal delay={80}>
               <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-                See VisionWheel in action.
+                {content.headline}
               </h2>
             </Reveal>
             <Reveal delay={140}>
               <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted-foreground">
-                Tell us who you are and we’ll arrange a live walkthrough with a
-                clinical specialist, tailored to your setting.
+                {content.body}
               </p>
             </Reveal>
           </div>
@@ -42,7 +123,7 @@ export function ContactFooter() {
                 <div>
                   <p className="text-sm font-medium text-foreground">Request received.</p>
                   <p className="text-sm text-muted-foreground">
-                    A specialist will reach out within one business day.
+                    {content.confirmation}
                   </p>
                 </div>
               </Reveal>
@@ -61,7 +142,11 @@ export function ContactFooter() {
                       <button
                         key={r}
                         type="button"
-                        onClick={() => setRole(r)}
+                        aria-pressed={role === r}
+                        onClick={() => {
+                          setRole(r)
+                          setSubmitted(false)
+                        }}
                         className={`px-3 py-2.5 text-sm font-medium transition-colors ${
                           role === r
                             ? 'bg-primary text-primary-foreground'
@@ -76,24 +161,26 @@ export function ContactFooter() {
 
                 <Field label="Full name" id="name" type="text" placeholder="Jordan Avery" />
                 <Field
-                  label="Work email"
+                  label={content.emailLabel}
                   id="email"
                   type="email"
-                  placeholder="jordan@clinic.org"
+                  placeholder={content.emailPlaceholder}
                 />
-                <Field
-                  label="Organization"
-                  id="org"
-                  type="text"
-                  placeholder="Northside Rehabilitation"
-                  required={false}
-                />
+                {content.organizationLabel && content.organizationPlaceholder && (
+                  <Field
+                    label={content.organizationLabel}
+                    id="org"
+                    type="text"
+                    placeholder={content.organizationPlaceholder}
+                    required={false}
+                  />
+                )}
 
                 <button
                   type="submit"
                   className="mt-1 rounded-sm bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
                 >
-                  Request a demo
+                  {content.submitLabel}
                 </button>
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   By submitting you agree to be contacted about VisionWheel. We
@@ -108,9 +195,13 @@ export function ContactFooter() {
       <footer className="px-6 py-10 sm:px-10 lg:px-14">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-sm border border-foreground">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-            </span>
+            <Image
+              src="/visiontech-logo.png"
+              alt=""
+              width={896}
+              height={512}
+              className="h-6 w-auto"
+            />
             <span className="text-sm font-semibold tracking-tight text-foreground">
               VisionWheel
             </span>
