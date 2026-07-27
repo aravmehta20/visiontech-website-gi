@@ -14,17 +14,17 @@ export function Architecture() {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* Module image */}
         <div className="relative flex items-center justify-center border-border bg-card px-6 py-14 sm:px-10 lg:border-r">
-          <Reveal className="relative aspect-[3/2] w-full max-w-lg">
+          <Reveal className="relative aspect-[4/3] w-full max-w-md">
             <Image
-              src="/visionwheel-operation.png"
-              alt="VisionWheel operation cycle: signal acquisition from eye-tracking glasses, one-minute calibration, and on-device classification driving wheelchair movement"
+              src="/visionwheel-glasses.png"
+              alt="VisionWheel carbon-fiber eye-tracking glasses with integrated infrared sensors on a porcelain background"
               fill
               className="object-contain"
               sizes="(max-width: 1024px) 90vw, 45vw"
             />
           </Reveal>
           <span className="eyebrow absolute bottom-5 right-6 text-muted-foreground">
-            Fig. 02 — Operation cycle
+            Fig. 02 — Carbon-fiber optics
           </span>
         </div>
 

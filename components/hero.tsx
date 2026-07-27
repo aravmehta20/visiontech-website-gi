@@ -80,8 +80,7 @@ export function Hero() {
             </div>
 
             {/* annotation lines */}
-            <Annotation className="left-2 top-6" label="Eye-tracking module" side="left" />
-            <Annotation className="right-2 top-1/3" label="Drive controller" side="right" />
+            <Annotation className="left-2 top-6" label="Powered drive base" side="left" />
             <Annotation className="bottom-10 left-6" label="Aluminum frame" side="left" />
           </Reveal>
 
